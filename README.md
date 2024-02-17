@@ -1,4 +1,4 @@
-# BLOG DE DEV-IN
+# BLOG DEV-IN
 
 ## Technologies Utilisées
 
