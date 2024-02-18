@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Header from '@/components/Header';
 
 interface Article {
   id: number;
@@ -23,6 +24,8 @@ const ArticlesPage: React.FC = () => {
 
 
   return (
+    <>
+    <Header />
     <div>
       {articles.map((article) => (
         <div key={article.id}>
@@ -32,6 +35,7 @@ const ArticlesPage: React.FC = () => {
         </div>
       ))}
     </div>
+    </>
   );
 }
 
