@@ -24,4 +24,14 @@ class ArticleController extends AbstractController
         return new JsonResponse($articleJson, Response::HTTP_OK, ['Content-Type' => 'application/json']);
 
     }
+
+    #[Route('/articles/{id}', name: 'app_article_single')]
+    public function articleSingle(EntityManagerInterface $entityManager, SerializerInterface $serializer, Article $article): JsonResponse
+    {
+        $articleJson = $serializer->serialize($article,'json');
+
+        return new JsonResponse($articleJson, Response::HTTP_OK, ['Content-Type' => 'application/json']);
+
+
+    }
 }

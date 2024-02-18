@@ -2,12 +2,13 @@ import React from 'react';
 import { TERipple } from 'tw-elements-react';
 
 interface CardBasicProps {
+    id: number,
     name: string,
     content: string,
     createdAt: string
 }
 
-export default function CardBasicExample({name, content, createdAt}: CardBasicProps): JSX.Element {
+export default function CardBasicExample({id, name, content, createdAt}: CardBasicProps): JSX.Element {
   return (
       <div
         className="mx-auto block max-w-md p-6 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 md:max-w-xl">

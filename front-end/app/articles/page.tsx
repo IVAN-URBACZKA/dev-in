@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '@/components/Header';
 import ArticleCard from '@/components/ArticleCard';
+import Link from 'next/link';
+
 
 interface Article {
   id: number;
@@ -28,9 +30,11 @@ const ArticlesPage: React.FC = () => {
     <>
     <Header />
     <div>
-      {articles.map((article) => (
-       <ArticleCard name={article.name} content={article.content} createdAt={article.createdAt} />
-      ))}
+    {articles.map((article) => (
+  <Link key={article.id} href={`/articles/${article.id}`} passHref>
+    <ArticleCard id={article.id} name={article.name} content={article.content} createdAt={article.createdAt} />
+  </Link>
+))}
     </div>
     </>
   );
