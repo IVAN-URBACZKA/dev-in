@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/article", label: "Articles" },
+    { href: "/articles", label: "Articles" },
   ];
 
   
