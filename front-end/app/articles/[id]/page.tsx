@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Header from '@/components/Header';
 
 interface Article {
   id: number;
@@ -23,6 +24,8 @@ const Page = ({ params }: { params: { id: string } }) => {
   }, [params.id]); 
 
   return (
+    <>
+    <Header />
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       {article ? (
         <div className="max-w-4xl mx-auto p-5 bg-white shadow-lg rounded-lg">
@@ -34,6 +37,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         <p className="text-lg text-gray-500">Chargement de l'article...</p>
       )}
     </div>
+    </>
   );
 };
 
