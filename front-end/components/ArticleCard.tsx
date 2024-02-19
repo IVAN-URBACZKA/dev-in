@@ -10,7 +10,6 @@ interface CardBasicProps {
 }
 
 export default function CardBasicExample({id, name, content, createdAt}: CardBasicProps): JSX.Element {
-  // Optionnel: Convertir la chaîne de date en un format plus lisible
   const formattedDate = new Date(createdAt).toLocaleDateString("fr-FR", {
     day: "numeric", month: "long", year: "numeric"
   });
