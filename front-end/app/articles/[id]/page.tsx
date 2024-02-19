@@ -23,15 +23,15 @@ const Page = ({ params }: { params: { id: string } }) => {
   }, [params.id]); 
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       {article ? (
-        <div>
-          <h1>{article.name}</h1> 
-          <p>{article.content}</p>
-          <em>{article.createdAt}</em>
+        <div className="max-w-4xl mx-auto p-5 bg-white shadow-lg rounded-lg">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{article.name}</h1>
+          <p className="text-gray-700 text-base whitespace-pre-line">{article.content}</p>
+          <em className="block text-right text-gray-500 text-sm">{new Date(article.createdAt).toLocaleDateString()}</em>
         </div>
       ) : (
-        <p>Chargement de l'article...</p> 
+        <p className="text-lg text-gray-500">Chargement de l'article...</p>
       )}
     </div>
   );

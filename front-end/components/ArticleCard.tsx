@@ -1,7 +1,6 @@
 import React from 'react';
 import { TERipple } from 'tw-elements-react';
-import Link from 'next/link'
-
+import Link from 'next/link';
 
 interface CardBasicProps {
     id: number,
@@ -11,18 +10,25 @@ interface CardBasicProps {
 }
 
 export default function CardBasicExample({id, name, content, createdAt}: CardBasicProps): JSX.Element {
+  // Optionnel: Convertir la chaîne de date en un format plus lisible
+  const formattedDate = new Date(createdAt).toLocaleDateString("fr-FR", {
+    day: "numeric", month: "long", year: "numeric"
+  });
+
   return (
-      <div
-        className="mx-auto mb-5 block max-w-md p-6 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 md:max-w-xl">
-        <h5
-          className="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-          {name}
-        </h5>
-        <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-          {content}
-        </p>
-        <em>{createdAt}</em> <br />
-        <Link href={`/articles/${id}`}>Cliquez ici</Link>
+      <div className="mx-auto mb-8 block max-w-md p-8 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow duration-500 ease-in-out dark:bg-gray-800 dark:border-gray-700 border border-gray-200 md:max-w-2xl">
+        <TERipple>
+          <div className="space-y-6">
+            <h5 className="text-2xl font-semibold leading-tight text-gray-900 dark:text-white">
+              {name}
+            </h5>
+            <p className="text-lg text-gray-700 dark:text-gray-300">
+              {content}
+            </p>
+            <em className="text-sm text-gray-500">{formattedDate}</em> <br />
+            <Link href={`/articles/${id}`}>Cliquez ici</Link>
+          </div>
+        </TERipple>
       </div>
   );
 }
