@@ -9,6 +9,7 @@ const Navbar = () => {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/articles", label: "Articles" },
+    { href: "/contact", label: "Contact" },
   ];
 
   
@@ -32,9 +33,9 @@ const Navbar = () => {
             ))}
           </ul>
           <div className="flex gap-2 text-lg leading-normal font-medium font-montserrat max-lg:hidden wide:mr-24">
-            <a href="/">Sign in</a>
+            <a href="/">Créer un compte</a>
             <span>/</span>
-            <a href="/">Explore now</a>
+            <a href="/">Se connecter</a>
           </div>
           <div
             className="hidden max-lg:block cursor-pointer"
