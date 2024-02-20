@@ -7,10 +7,11 @@ import Link from 'next/link';
 
 
 interface Article {
-  id: number;
-  name: string;
-  createdAt: string
-  content: string;
+  id: number,
+  name: string,
+  slug: string,
+  createdAt: string,
+  content: string
 }
 
 const ArticlesPage: React.FC = () => {
@@ -31,8 +32,8 @@ const ArticlesPage: React.FC = () => {
     <Header />
     <div>
     {articles.map((article) => (
-  <Link key={article.id} href={`/articles/${article.id}`} passHref>
-    <ArticleCard id={article.id} name={article.name} content={article.content} createdAt={article.createdAt} />
+  <Link key={article.id} href={`/articles/${article.slug}`} passHref>
+    <ArticleCard id={article.id} slug={article.slug} name={article.name} content={article.content} createdAt={article.createdAt} />
   </Link>
 ))}
     </div>
