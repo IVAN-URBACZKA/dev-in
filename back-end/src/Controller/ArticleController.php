@@ -25,7 +25,7 @@ class ArticleController extends AbstractController
 
     }
 
-    #[Route('/articles/{id}', name: 'app_article_single')]
+    #[Route('/articles/{slug}', name: 'app_article_single')]
     public function articleSingle(EntityManagerInterface $entityManager, SerializerInterface $serializer, Article $article): JsonResponse
     {
         $articleJson = $serializer->serialize($article,'json');

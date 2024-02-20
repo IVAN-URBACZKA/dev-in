@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Link from 'next/link';
+
 
 export default class Header extends Component {
   render() {
@@ -8,9 +10,9 @@ export default class Header extends Component {
 
      <div className='flex justify-center space-x-16 items-baseline'>
 
-
+     <Link  href={`/`} passHref>
         <h1 className='text-5xl'>👾 Ivan Urbaczka</h1>
-       
+       </Link>
         
 
          <nav >
