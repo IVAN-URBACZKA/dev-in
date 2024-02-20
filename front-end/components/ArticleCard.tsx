@@ -15,7 +15,7 @@ export default function CardBasicExample({id, name, content, createdAt}: CardBas
   });
 
   return (
-      <div className="mx-auto mb-8 block max-w-md p-8 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow duration-500 ease-in-out dark:bg-gray-800 dark:border-gray-700 border border-gray-200 md:max-w-2xl">
+      <div className="mx-auto mt-5 mb-8 block max-w-md p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-500 ease-in-out white:bg-gray-800 grey:border-gray-700 border border-gray-200 md:max-w-3xl">
         <TERipple>
           <div className="space-y-6">
             <h5 className="text-2xl font-semibold leading-tight text-gray-900 dark:text-white">
