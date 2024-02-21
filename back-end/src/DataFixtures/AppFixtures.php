@@ -18,9 +18,7 @@ class AppFixtures extends Fixture
         $article = new Article();
         $date = new DateTimeImmutable();
 
-        $article->setName("Symfony ou Laravel")
-                ->setCreatedAt($date)
-                ->setSlug($slugify->slugify("Symfony ou Laravel"))
+        $article->setName("Javascript ou Typescript")
                 ->setContent('Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab deserunt soluta incidunt ex. Maxime ipsa exercitationem voluptas explicabo sapiente ad maiores, vitae earum aliquam libero voluptates perspiciatis nesciunt, eius adipisci? ');
 
         $manager->persist($article);
