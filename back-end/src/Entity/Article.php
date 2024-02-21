@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
+
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Article
 {
     #[ORM\Id]
@@ -40,7 +43,17 @@ class Article
     {
         $this->name = $name;
 
+        $slugify = new Slugify();
+
+        $this->slug = $slugify->slugify($name);
+
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -74,7 +87,7 @@ class Article
 
     public function setSlug(string $slug): static
     {
-        $this->slug = $slug;
+        $this->slug = $this->getName();
 
         return $this;
     }

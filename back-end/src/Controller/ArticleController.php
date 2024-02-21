@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,7 +27,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/articles/{slug}', name: 'app_article_single')]
-    public function articleSingle(EntityManagerInterface $entityManager, SerializerInterface $serializer, Article $article): JsonResponse
+    public function articleSingle(SerializerInterface $serializer, Article $article): JsonResponse
     {
         $articleJson = $serializer->serialize($article,'json');
 
@@ -34,4 +35,23 @@ class ArticleController extends AbstractController
 
 
     }
+
+    #[Route('/add/article', name:'app_article_add', methods:['POST', 'GET'])]
+    public function addArticle(EntityManagerInterface $entityManager, Request $request):JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $user = new Article();
+        $user->setName($data['name']);
+        $user->setContent($data['content']);
+       
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+
+        return new JsonResponse(Response::HTTP_OK);
+    }
+
+
 }
