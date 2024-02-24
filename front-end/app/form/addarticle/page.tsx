@@ -10,13 +10,17 @@ interface Article {
 
 const CreateArticleForm: React.FC = () => {
   const [article, setArticle] = useState<Article>({ name: '', content: '' });
-  const router = useRouter(); 
+  const router = useRouter();
 
   useEffect(() => {
-   console.log("monté")
-  }, []); // 
+    const token = localStorage.getItem('token');
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!token) {
+      router.push('/login')
+    }
+  }, [router]); // 
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setArticle({ ...article, [name]: value });
   };
@@ -35,37 +39,40 @@ const CreateArticleForm: React.FC = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={article.name}
-              onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="content" className="block text-gray-700 text-sm font-bold mb-2">Contenu</label>
-            <input
-              type="text"
-              id="content"
-              name="content"
-              value={article.content}
-              onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Créer l'article
-            </button>
-          </div>
-        </form>
-      </div>
+  <div className="flex justify-center items-center h-screen">
+  <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-lg"> {/* Ajustez la largeur du formulaire si nécessaire */}
+    <div className="mb-4">
+      <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value={article.name}
+        onChange={handleChange}
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+    <div className="mb-4">
+      <label htmlFor="content" className="block text-gray-700 text-sm font-bold mb-2">Contenu</label>
+      <textarea
+        id="content"
+        name="content"
+        value={article.content}
+        onChange={handleChange}
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        style={{ minHeight: '300px' }} // Définissez une hauteur minimale ici
+        rows={10}
+      ></textarea>
+    </div>
+
+    <div className="flex items-center justify-between">
+      <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Créer l'article
+      </button>
+    </div>
+  </form>
+</div>
+
     </>
   );
 };
