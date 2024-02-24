@@ -22,8 +22,8 @@ export default class Header extends Component {
         
       <nav className='ml-16'>
         <ul className='flex flex-row space-x-2'>
-          <li className='text-2xl font-bold'><a className="underline underline-offset-3" href="/archives">Archives</a></li>
-          <li className='text-2xl font-bold'><a className="underline underline-offset-3" href="/contact">Contact</a></li>
+          <li className='text-2xl font-bold hover:bg-purple-900'><a className="underline underline-offset-3" href="/archives">Archives</a></li>
+          <li className='text-2xl font-bold hover:bg-purple-900'><a className="underline underline-offset-3" href="/contact">Contact</a></li>
         </ul>
       </nav>
     </div>
