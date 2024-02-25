@@ -2,6 +2,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
+import ApiService from '@/services/ApiService';
 
 interface Article {
   name: string,
@@ -29,7 +30,7 @@ const CreateArticleForm: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8000/add/article', article);
+      const response = await ApiService.addArticle(article);
       router.push('/')
 
     } catch (error) {

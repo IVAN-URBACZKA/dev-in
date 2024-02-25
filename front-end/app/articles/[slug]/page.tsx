@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Header from '@/components/Header';
+import ApiService from '@/services/ApiService';
 
 interface Article {
   id: number;
@@ -16,7 +16,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
   const [article, setArticle] = useState<Article | null>(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/articles/${params.slug}`) 
+    ApiService.getArticle(params.slug)
       .then(response => {
         const data = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
         console.log(data);

@@ -5,8 +5,7 @@ import Link from 'next/link';
 export default class Header extends Component {
 
   logout = () => {
-    localStorage.removeItem('token'); // Supprime le token du localStorage
-    window.location.href = '/login'; // Redirige vers la page de connexion
+    localStorage.removeItem('token'); 
   };
 
   render() {
