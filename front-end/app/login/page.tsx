@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, use, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
 
@@ -13,6 +13,14 @@ const LoginForm: React.FC = () => {
     const [user, setUser] = useState<IUser>({ email: '', password: '' });
     const [login, setLogin] = useState<boolean>(false);
     const router = useRouter(); 
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        router.push('/')
+      }
+    }, [router] )
     
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,9 +44,11 @@ const LoginForm: React.FC = () => {
         setUser({ ...user, [name]: value });
       };
 
+     
+
     return (
         <>
-        <div className="flex justify-center items-center h-screen">
+         { !token  ? (<div className="flex justify-center items-center h-screen">
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
      
 
@@ -72,7 +82,7 @@ const LoginForm: React.FC = () => {
           </button>
         </div>
       </form>
-    </div>
+    </div> ) : ( <p className="text-lg text-gray-500">VOUS ÊTEZ DEJA CONNECTER</p> )}
         </>
     );
 };
