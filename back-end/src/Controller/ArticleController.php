@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,6 +50,22 @@ class ArticleController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
+
+        return new JsonResponse(Response::HTTP_OK);
+    }
+
+    #[Route('update/article', name:'app_article_update', methods:['POST', 'GET'])]
+    public function updateArticle(EntityManagerInterface $entityManager, Request $request):JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $article = $entityManager->getRepository(Article::class)->findOneBy(['id' => $data['id']]);
+
+        $article->setName($data['name']);
+        $article->setContent($data['content']);
+
+        $entityManager->persist($article);
+        $entityManager->flush();
 
         return new JsonResponse(Response::HTTP_OK);
     }
