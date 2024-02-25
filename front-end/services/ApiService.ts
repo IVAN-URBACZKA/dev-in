@@ -31,6 +31,9 @@ class ApiService {
     return api.get(`/articles/${slug}`)
   }
 
+  static async updateArticle(article: Article): Promise<AxiosResponse> {
+    return api.post(`update/article` , article)
+  }
   
 }
 

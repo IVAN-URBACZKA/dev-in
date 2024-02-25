@@ -25,7 +25,7 @@ export default function CardBasicExample({id, name,slug, content, createdAt}: Ca
       <div className="mx-auto mt-5 mb-8 block max-w-md p-8 rounded-xl shadow-sm white:bg-gray-800 grey:border-gray-700 border border-gray-200 md:max-w-3xl">
           <div className="space-y-6">
             <h5 className="text-2xl font-semibold leading-tight text-gray-900 dark:text-white">
-            <Link href={`/articles/${slug}`}>{name}</Link>
+            {name}
             </h5>
             <p className="text-lg text-gray-700 dark:text-gray-300">
               {truncatedText}
