@@ -1,19 +1,18 @@
 "use client";
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import ApiService from '@/services/ApiService';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
-const validationSchema = Yup.object({
-  name: Yup.string().required('Le nom est obligatoire'),
-  content: Yup.string().required('Le contenu est obligatoire'),
-});
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UpdateForm = ({ params }: { params: { slug: string } }) => {
+  const [isLoading, setIsLoading] = useState(false); 
   const router = useRouter();
 
   useEffect(() => {
+    setIsLoading(true);
     const token = localStorage.getItem('token');
     if (!token) {
       router.push('/');
@@ -25,9 +24,15 @@ const UpdateForm = ({ params }: { params: { slug: string } }) => {
           const data = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
           formik.setValues(data);
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
+        .finally(() => setIsLoading(false)); // Ajout du finally pour gérer l'état de chargement
     }
   }, [router, params.slug]);
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Le nom est obligatoire'),
+    content: Yup.string().required('Le contenu est obligatoire'),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -36,17 +41,31 @@ const UpdateForm = ({ params }: { params: { slug: string } }) => {
     },
     validationSchema,
     onSubmit: async (values) => {
+      setIsLoading(true);
       try {
         await ApiService.updateArticle(values);
-        router.push('/');
+        toast.success('Article mis à jour avec succès!', {
+          onClose: redirectToHome, // Utilisez redirectToHome directement si vous voulez rediriger immédiatement après la fermeture du toast
+        });
       } catch (error) {
         console.error(error);
+        toast.error('La mise à jour a échoué.');
+      } finally {
+        setIsLoading(false);
       }
     },
   });
 
+  const redirectToHome = () => {
+    setTimeout(() => {
+      router.push('/');
+    }, 200); 
+  };
+
+
   return (
     <div className="flex justify-center items-center h-screen">
+      <ToastContainer />
       <form onSubmit={formik.handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-lg">
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
