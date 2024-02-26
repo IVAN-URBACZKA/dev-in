@@ -1,10 +1,11 @@
-"use client";
+"use client"
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ApiService from '@/services/ApiService';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Le nom est obligatoire'),
@@ -30,17 +31,22 @@ const CreateArticleForm: React.FC = () => {
     onSubmit: async (values) => {
       try {
         await ApiService.addArticle(values);
-        router.push('/');
+        toast.success('Article créé avec succès!', {
+          onClose: () => router.push('/'), // Redirection après la fermeture du toast
+          autoClose: 5000, // Temps avant la fermeture automatique du toast (5000ms = 5 secondes)
+        });
       } catch (error) {
         console.error(error);
+        toast.error('La création a échoué.');
       }
     },
   });
 
   return (
     <div className="flex justify-center items-center h-screen">
+      <ToastContainer />
       <form onSubmit={formik.handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-lg">
-        <div className="mb-4">
+      <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
           <input
             type="text"
