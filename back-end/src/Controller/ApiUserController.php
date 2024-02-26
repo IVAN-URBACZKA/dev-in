@@ -13,7 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ApiUserController extends AbstractController
 {
-    #[Route('/api/user', name: 'app_api_user', methods:['GET','POST'])]
+    #[Route('/user', name: 'app_api_user', methods:['GET','POST'])]
     public function index(EntityManagerInterface $entityManager, Request $request, UserPasswordHasherInterface $userPasswordHasher): JsonResponse
     {
         
@@ -33,7 +33,7 @@ class ApiUserController extends AbstractController
         $entityManager->flush();
 
 
-        return new JsonResponse(Response::HTTP_OK);
+        return new JsonResponse($request->getContent());
 
     }
 }
