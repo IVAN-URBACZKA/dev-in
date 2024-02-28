@@ -23,6 +23,7 @@ class UserService
         $user = new User();
         $user->setUsername($data['username'])
              ->setEmail($data['email'])
+             ->setRoles(['ROLE_USER'])
              ->setPassword($this->userPasswordHasher->hashPassword($user, $data['password']));
         
         $this->entityManager->persist($user);

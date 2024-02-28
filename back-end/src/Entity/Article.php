@@ -7,7 +7,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 
-
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Article
@@ -29,6 +28,12 @@ class Article
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    public function __construct()
+    {
+        
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -39,21 +44,12 @@ class Article
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
-
-        $slugify = new Slugify();
-
-        $this->slug = $slugify->slugify($name);
+        $this->updateSlug();
 
         return $this;
-    }
-
-    #[ORM\PrePersist]
-    public function setCreatedAtValue()
-    {
-        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -61,19 +57,14 @@ class Article
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
+    
 
     public function getContent(): ?string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): static
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
@@ -85,10 +76,12 @@ class Article
         return $this->slug;
     }
 
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $this->getName();
 
-        return $this;
+    private function updateSlug(): void
+    {
+        $slugify = new Slugify();
+        $this->slug = $slugify->slugify($this->name);
     }
+
+    
 }
