@@ -34,6 +34,10 @@ class ApiService {
   static async updateArticle(article: Article): Promise<AxiosResponse> {
     return api.post(`update/article` , article)
   }
+
+  static async deleteUser(id: Number): Promise<AxiosResponse> {
+    return api.post(`/user/${id}`)
+  }
   
 }
 

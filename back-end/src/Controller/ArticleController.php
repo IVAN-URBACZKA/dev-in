@@ -70,5 +70,14 @@ class ArticleController extends AbstractController
         return new JsonResponse(Response::HTTP_OK);
     }
 
+    #[Route('/article/{id}', name: 'app_api_article_delete', methods:['GET', 'POST'])]
+    public function deleteUser(Request $request, EntityManagerInterface $entityManager, Article $article): JsonResponse
+    {
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+        return new JsonResponse(Response::HTTP_OK);
+    }
+
 
 }
