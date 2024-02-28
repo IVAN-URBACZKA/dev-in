@@ -26,18 +26,39 @@ const ArticlesPage: React.FC = () => {
       .catch(error => console.log(error));
   }, []);
 
-
+  const handleDelete = (articleId: number) => {
+    axios.post(`http://localhost:8000/article/${articleId}`)
+      .then(() => {
+        const updatedArticles = articles.filter(article => article.id !== articleId);
+        setArticles(updatedArticles);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  
   return (
     <>
-    <div>
-    {articles.map((article) => (
-  <Link key={article.id} href={`update/${article.slug}`} passHref>
-    <ArticleCard id={article.id} slug={article.slug} name={article.name} content={article.content} createdAt={article.createdAt} />
-  </Link>
-))}
-    </div>
+      <div>
+        {articles.map((article) => (
+          <div key={article.id} className='article-container text-center'>
+            
+            <div className='delete-link-container mt-5'>
+           
+              <a href="#" className="text-xl hover:bg-purple-900" onClick={(e) => { e.preventDefault(); handleDelete(article.id); }}>Delete</a>
+            </div>
+            <Link href={`update/${article.slug}`} passHref>
+              <div className='article-card-link'>
+               
+                <ArticleCard id={article.id} slug={article.slug} name={article.name} content={article.content} createdAt={article.createdAt} />
+              </div>
+            </Link>
+          </div>
+        ))}
+      </div>
     </>
   );
+  
 }
 
 export default ArticlesPage;

@@ -34,4 +34,5 @@ class ApiUserController extends AbstractController
 
         return $this->json(['message' => 'User created successfully', 'userId' => $user->getId()], Response::HTTP_CREATED);
     }
+
 }
