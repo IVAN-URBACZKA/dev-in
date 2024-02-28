@@ -32,8 +32,8 @@ const CreateArticleForm: React.FC = () => {
       try {
         await ApiService.addArticle(values);
         toast.success('Article créé avec succès!', {
-          onClose: () => router.push('/'), // Redirection après la fermeture du toast
-          autoClose: 5000, // Temps avant la fermeture automatique du toast (5000ms = 5 secondes)
+          onClose: () => router.push('/'), 
+          autoClose: 5000, 
         });
       } catch (error) {
         console.error(error);

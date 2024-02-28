@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
+import { toast, ToastContainer } from 'react-toastify';
+
+
+
 
 const validationSchema = Yup.object({
   username: Yup.string().required('Le nom d\'utilisateur est obligatoire'),
@@ -12,6 +18,7 @@ const validationSchema = Yup.object({
 
 const CreateUserForm: React.FC = () => {
   const [apiError, setApiError] = useState(''); 
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -23,6 +30,10 @@ const CreateUserForm: React.FC = () => {
       try {
         const response = await axios.post('http://localhost:8000/user', values);
         console.log(response.data);
+        toast.success('User créé avec succès!', {
+          onClose: () => router.push('/'), 
+          autoClose: 100, 
+        });
         setApiError(''); 
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -36,6 +47,7 @@ const CreateUserForm: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
+       <ToastContainer />
       <form onSubmit={formik.handleSubmit} aria-labelledby="formTitle" className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h2 id="formTitle" className="text-lg leading-6 font-medium text-gray-900">Créer un compte</h2>
         {apiError && <p role="alert" className="text-red-500 text-xs italic">{apiError}</p>}
