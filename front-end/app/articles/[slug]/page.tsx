@@ -19,7 +19,6 @@ const Page = ({ params }: { params: { slug: string } }) => {
     ApiService.getArticle(params.slug)
       .then(response => {
         const data = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
-        console.log(data);
         setArticle(data);
       })
       .catch(error => console.log(error));

@@ -46,7 +46,7 @@ const CreateArticleForm: React.FC = () => {
     <div className="flex justify-center items-center h-screen">
       <ToastContainer />
       <form onSubmit={formik.handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-lg">
-      <div className="mb-4">
+        <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
           <input
             type="text"

@@ -8,7 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const UpdateForm = ({ params }: { params: { slug: string } }) => {
-  const [isLoading, setIsLoading] = useState(false); 
+  const [, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const UpdateForm = ({ params }: { params: { slug: string } }) => {
           formik.setValues(data);
         })
         .catch(error => console.log(error))
-        .finally(() => setIsLoading(false)); // Ajout du finally pour gérer l'état de chargement
+        .finally(() => setIsLoading(false));
     }
   }, [router, params.slug]);
 
@@ -45,7 +45,7 @@ const UpdateForm = ({ params }: { params: { slug: string } }) => {
       try {
         await ApiService.updateArticle(values);
         toast.success('Article mis à jour avec succès!', {
-          onClose: redirectToHome, // Utilisez redirectToHome directement si vous voulez rediriger immédiatement après la fermeture du toast
+          onClose: redirectToHome,
         });
       } catch (error) {
         console.error(error);
@@ -59,9 +59,8 @@ const UpdateForm = ({ params }: { params: { slug: string } }) => {
   const redirectToHome = () => {
     setTimeout(() => {
       router.push('/');
-    }, 200); 
+    }, 200);
   };
-
 
   return (
     <div className="flex justify-center items-center h-screen">

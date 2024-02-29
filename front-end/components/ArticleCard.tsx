@@ -11,8 +11,11 @@ interface CardBasicProps {
   isUserAuthenticated: boolean
 }
 
-
-function TruncateText(text: string, maxLength: number): string {
+function TruncateText(text: string | undefined | null, maxLength: number): string {
+  
+  if (text == null) { 
+    return ''; 
+  }
   return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
 }
 
