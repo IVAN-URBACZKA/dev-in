@@ -31,7 +31,7 @@ class ApiUserController extends AbstractController
         if ($errorMessages = $userService->validateUser($user)) {
             return $this->json($errorMessages, Response::HTTP_BAD_REQUEST);
         }
-
+       
         return $this->json(['message' => 'User created successfully', 'userId' => $user->getId()], Response::HTTP_CREATED);
     }
 

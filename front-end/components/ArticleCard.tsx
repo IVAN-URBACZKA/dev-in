@@ -1,19 +1,22 @@
 import React from 'react';
 
-
 interface CardBasicProps {
-    id: number,
-    name: string,
-    slug: string,
-    content: string,
-    createdAt: string
+  id: number,
+  name: string,
+  slug: string,
+  content: string,
+  createdAt: string,
+  onDelete: (id: number) => void, 
+  editPath: string,
+  isUserAuthenticated: boolean
 }
+
 
 function TruncateText(text: string, maxLength: number): string {
   return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
 }
 
-export default function CardBasicExample({id, name,slug, content, createdAt}: CardBasicProps): JSX.Element {
+export default function CardBasicExample({id, name, slug, content, createdAt, onDelete, editPath, isUserAuthenticated}: CardBasicProps): JSX.Element {
   const formattedDate = new Date(createdAt).toLocaleDateString("fr-FR", {
     day: "numeric", month: "long", year: "numeric"
   });
@@ -32,7 +35,12 @@ export default function CardBasicExample({id, name,slug, content, createdAt}: Ca
             </p>
             <em className="text-sm text-gray-500">{formattedDate}</em> <br />
           </div>
-        
+          {isUserAuthenticated && (
+          <div className='actions-container mt-4'>
+            <a href={editPath} className="mr-4 text-xl hover:bg-purple-500">Edit</a>
+            <a href="#" className="text-xl hover:bg-purple-900" onClick={(e) => { e.preventDefault(); onDelete(id); }}>Delete</a>
+          </div>
+         )}
       </div>
   );
 }
